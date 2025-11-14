@@ -1,0 +1,19 @@
+# Функція для перевірки, чи належить число ряду Фібоначчі
+def is_fibonacci(num):
+    a, b = 0, 1
+    while a <= num:
+        if a == num:
+            return True
+        a, b = b, a + b
+    return False
+
+# Зчитуємо рядок чисел від користувача
+input_str = input("Введіть цілі числа через кому: ")
+
+# Перетворюємо рядок у список цілих чисел
+numbers = [int(x.strip()) for x in input_str.split(',')]
+
+# Виводимо числа, які належать ряду Фібоначчі
+fib_numbers = [num for num in numbers if is_fibonacci(num)]
+
+print("Числа, що належать ряду Фібоначчі:", fib_numbers)
