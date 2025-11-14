@@ -1,0 +1,51 @@
+def input_matrix():
+    while True:
+        try:
+            # Зчитуємо рядок та перетворюємо у список цілих чисел
+            row = input("Введіть цілі числа через пропуск: ").split()
+            matrix = [list(map(int, row))]
+            n = len(matrix[0])
+            # Перевірка, що всі рядки однакової довжини
+            while True:
+                additional_rows = int(input("Введіть кількість рядків n (повинно дорівнювати кількості стовпців): "))
+                matrix = []
+                for i in range(additional_rows):
+                    while True:
+                        row_input = input(f"Введіть рядок {i+1} з {additional_rows} цілих чисел через пропуск: ").split()
+                        if len(row_input) != additional_rows:
+                            print(f"Помилка: потрібно ввести exactly {additional_rows} чисел.")
+                        else:
+                            try:
+                                matrix.append(list(map(int, row_input)))
+                                break
+                            except ValueError:
+                                print("Помилка: потрібно вводити цілі числа.")
+                if len(matrix) == additional_rows:
+                    break
+            # Перевірка розміру матриці
+            if all(len(r) == additional_rows for r in matrix):
+                return matrix
+            else:
+                print("Помилка: всі рядки повинні мати однакову довжину.")
+        except ValueError:
+            print("Помилка: введено некоректні дані, спробуйте ще раз.")
+
+def is_symmetric_off_diagonal(matrix):
+    n = len(matrix)
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                if matrix[i][j] != matrix[n - j - 1][n - i - 1]:
+                    return False
+    return True
+
+# Основна програма
+matrix = input_matrix()
+print("\nВведена матриця:")
+for row in matrix:
+    print(row)
+
+if is_symmetric_off_diagonal(matrix):
+    print("\nМатриця симетрична відносно не головної діагоналі.")
+else:
+    print("\nМатриця не є симетричною відносно не головної діагоналі.")
